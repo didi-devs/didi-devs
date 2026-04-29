@@ -12,7 +12,7 @@ Whether it's building a product, integrating APIs, or wiring up an end-to-end bu
 
 | Category | Tools |
 |---|---|
-| **Automation** | n8n |
+| **Automation** | n8n | make
 | **AI / LLMs** | Google Gemini 2.0, LangChain |
 | **CRM** | HubSpot |
 | **Project Management** | Monday.com |
