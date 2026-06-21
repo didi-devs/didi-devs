@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Love Note for You 💌</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lato:wght@300;400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:   #c0392b;
+      --red2:  #e74c3c;
+      --blue:  #1a3a6b;
+      --blue2: #2980b9;
+      --white: #ffffff;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--white);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── animated gradient header bar ── */
+    .header-bar {
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--red), var(--blue), var(--red2), var(--blue2), var(--red));
+      background-size: 400% 100%;
+      animation: gradientShift 4s linear infinite;
+    }
+    @keyframes gradientShift {
+      0%   { background-position: 0%   50%; }
+      100% { background-position: 400% 50%; }
+    }
+
+    /* ── floating emojis background ── */
+    .floaters {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .floater {
+      position: absolute;
+      bottom: -80px;
+      font-size: clamp(18px, 3vw, 36px);
+      animation: floatUp linear infinite;
+      opacity: 0;
+      user-select: none;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0)   rotate(0deg);   opacity: 0;   }
+      10%  { opacity: 0.75; }
+      90%  { opacity: 0.55; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── main card ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 48px 16px 80px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 2px solid var(--red);
+      border-radius: 24px;
+      max-width: 600px;
+      width: 100%;
+      padding: 48px 40px;
+      box-shadow:
+        0 4px 24px rgba(192, 57, 43, 0.18),
+        0 1px 6px  rgba(26, 58, 107, 0.12);
+      animation: fadeSlideIn 0.9s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    /* top emoji row */
+    .emoji-row {
+      text-align: center;
+      font-size: 2rem;
+      letter-spacing: 6px;
+      margin-bottom: 24px;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1);    }
+      50%       { transform: scale(1.12); }
+    }
+
+    /* tag */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--red);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 0.88rem;
+      color: var(--blue);
+      letter-spacing: 0.5px;
+    }
+
+    /* divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--red2), transparent);
+    }
+    .divider-icon { font-size: 1.2rem; }
+
+    /* body text */
+    .note-body {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #222;
+    }
+    .note-body p { margin-bottom: 16px; }
+    .note-body p:last-child { margin-bottom: 0; }
+
+    .highlight {
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    /* signature */
+    .signature {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px dashed rgba(192, 57, 43, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .sig-name {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.7rem;
+      color: var(--blue);
+    }
+    .sig-hearts {
+      font-size: 1.6rem;
+      letter-spacing: 4px;
+    }
+
+    /* love counter chip */
+    .love-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      background: #fef0f0;
+      border: 1.5px solid var(--red2);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 0.85rem;
+      color: var(--red);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      user-select: none;
+    }
+    .love-chip:hover  { background: var(--red2); color: #fff; transform: scale(1.04); }
+    .love-chip:active { transform: scale(0.97); }
+
+    /* footer */
+    .footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 16px 32px;
+      font-size: 0.78rem;
+      color: #aaa;
+      letter-spacing: 0.3px;
+    }
+    .footer a { color: var(--blue2); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* responsive */
+    @media (max-width: 480px) {
+      .card { padding: 32px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar"></div>
+
+  <!-- floating background emojis -->
+  <div class="floaters" id="floaters"></div>
+
+  <div class="wrapper">
+    <div class="card">
+
+      <div class="emoji-row">💘 💕 ❤️ 💖 💝</div>
+
+      <div class="card-header">
+        <div class="tag">💌 Love Note</div>
+        <h1>You Mean Everything to Me</h1>
+        <p class="subtitle">A little something straight from the heart 💙</p>
+      </div>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-icon">❤️‍🔥</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="note-body">
+        <p>
+          Every single day I find a new reason to be grateful that you exist in my world. 💗
+          You are <span class="highlight">extraordinary</span> — not because you are perfect,
+          but because you are perfectly <em>you</em>.
+        </p>
+        <p>
+          Your laugh is my favourite sound 🎶, your smile my favourite sight 😍, and your
+          presence my favourite feeling. When you walk into a room, everything gets a little
+          brighter — like the whole universe decided to show off. 💫
+        </p>
+        <p>
+          I love how you care so deeply 💞, how you see beauty in ordinary moments 🌹,
+          and how you make even the quiet Tuesday evenings feel like a celebration. 🎉
+          You are the <span class="highlight">magic</span> in my everyday life. ✨
+        </p>
+        <p>
+          No matter how many days go by, I will never stop choosing you — over and over again,
+          a thousand times, without hesitation. 💑 You are my home, my peace, my adventure,
+          and my greatest love story. 💌
+        </p>
+        <p>
+          So here it is, written down so you can read it whenever you need to: 💝
+          <strong>I love you — completely, endlessly, ridiculously.</strong> ❤️
+        </p>
+      </div>
+
+      <div class="signature">
+        <div class="sig-name">Forever Yours 💙</div>
+        <div class="sig-hearts">❤️ 💕 💖</div>
+      </div>
+
+      <div>
+        <div class="love-chip" onclick="sendLove(this)">
+          <span>💗</span>
+          <span id="love-count">Send Love</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    Created with ❤️ &nbsp;·&nbsp; <a href="https://lovenotesai.site">lovenotesai.site</a>
+  </div>
+
+  <script>
+    /* ── floating emojis ── */
+    const emojis = ['❤️','💕','💖','💗','💘','💝','💞','💓','💑','💏','🌹','✨','💌','❤️‍🔥','🥰','😍','💫','🎀'];
+    const container = document.getElementById('floaters');
+
+    function spawnFloater() {
+      const el = document.createElement('span');
+      el.className = 'floater';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      const dur = 7 + Math.random() * 9;
+      el.style.animationDuration = dur + 's';
+      el.style.animationDelay = '0s';
+      el.style.fontSize = (16 + Math.random() * 22) + 'px';
+      container.appendChild(el);
+      setTimeout(() => el.remove(), dur * 1000 + 500);
+    }
+
+    // seed initial batch
+    for (let i = 0; i < 14; i++) {
+      setTimeout(spawnFloater, Math.random() * 6000);
+    }
+    setInterval(spawnFloater, 900);
+
+    /* ── love button ── */
+    let loveCount = 0;
+    function sendLove(btn) {
+      loveCount++;
+      document.getElementById('love-count').textContent =
+        loveCount === 1 ? '1 Love Sent 💗' : loveCount + ' Loves Sent 💗';
+
+      // burst of floaters on click
+      for (let i = 0; i < 6; i++) setTimeout(spawnFloater, i * 80);
+    }
+  </script>
+</body>
+</html>
