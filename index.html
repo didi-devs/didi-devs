@@ -34,7 +34,6 @@
       overflow-x: hidden;
     }
 
-    /* ── header bar (amber/coffee gradient) ── */
     .header-bar {
       width: 100%;
       height: 8px;
@@ -47,7 +46,6 @@
       100% { background-position: 400%; }
     }
 
-    /* ── floating emojis ── */
     .floaters {
       pointer-events: none;
       position: fixed;
@@ -69,9 +67,6 @@
       100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* ══════════════════════════════════════
-       MAIN PAGE  —  coffee brown theme
-    ══════════════════════════════════════ */
     .main-page {
       position: relative;
       z-index: 1;
@@ -138,9 +133,6 @@
     .open-btn:hover  { background: #9a6035; border-color: var(--amber-lt); transform: scale(1.04); }
     .open-btn:active { transform: scale(0.97); }
 
-    /* ══════════════════════════════════════
-       SCROLL OVERLAY
-    ══════════════════════════════════════ */
     .scroll-overlay {
       position: fixed;
       inset: 0;
@@ -157,7 +149,6 @@
     }
     .scroll-overlay.open { opacity: 1; pointer-events: all; }
 
-    /* outer scroll wrapper */
     .scroll-outer {
       position: relative;
       max-width: 580px;
@@ -167,7 +158,6 @@
     }
     .scroll-overlay.open .scroll-outer { transform: none; }
 
-    /* close button */
     .close-btn {
       position: absolute;
       top: -14px;
@@ -191,9 +181,6 @@
     .close-btn:hover  { background: #9a6035; transform: scale(1.1); }
     .close-btn:active { transform: scale(0.93); }
 
-    /* ══════════════════════════════════════
-       SCROLL RODS  (wooden look)
-    ══════════════════════════════════════ */
     .scroll-rod {
       position: relative;
       z-index: 3;
@@ -208,8 +195,6 @@
         inset 0 2px 3px rgba(255,255,255,0.22),
         inset 0 -2px 3px rgba(0,0,0,0.35);
     }
-
-    /* rod end knobs */
     .scroll-rod::before,
     .scroll-rod::after {
       content: '';
@@ -225,47 +210,38 @@
     .scroll-rod::before { left:  -26px; }
     .scroll-rod::after  { right: -26px; }
 
-    /* ══════════════════════════════════════
-       SCROLL PAPER SHELL
-    ══════════════════════════════════════ */
     .scroll-paper-shell {
       position: relative;
       z-index: 2;
-      margin: -3px 0;           /* tuck slightly under rods */
+      margin: -3px 0;
       overflow: hidden;
       background: linear-gradient(168deg, #f8edd0 0%, #f2dfa0 45%, #e2c870 100%);
       box-shadow: 0 8px 40px rgba(0,0,0,0.5);
     }
 
-    /* ── BURNT EDGE OVERLAY — fixed, non-scrolling ── */
     .burnt-overlay {
       position: absolute;
       inset: 0;
       z-index: 10;
       pointer-events: none;
       background:
-        /* corners — intense char */
         radial-gradient(ellipse 65% 55% at   0%   0%, rgba(8,2,0,0.97)  0%, rgba(28,8,0,0.6)  28%, transparent 58%),
         radial-gradient(ellipse 65% 55% at 100%   0%, rgba(8,2,0,0.97)  0%, rgba(28,8,0,0.6)  28%, transparent 58%),
         radial-gradient(ellipse 65% 55% at   0% 100%, rgba(8,2,0,0.97)  0%, rgba(28,8,0,0.6)  28%, transparent 58%),
         radial-gradient(ellipse 65% 55% at 100% 100%, rgba(8,2,0,0.97)  0%, rgba(28,8,0,0.6)  28%, transparent 58%),
-        /* edges — brown scorch band then char */
         linear-gradient(to right,  rgba(18,5,0,0.82) 0%, rgba(60,22,0,0.3) 6%,  transparent 17%),
         linear-gradient(to left,   rgba(18,5,0,0.82) 0%, rgba(60,22,0,0.3) 6%,  transparent 17%),
         linear-gradient(to bottom, rgba(18,5,0,0.75) 0%, rgba(60,22,0,0.25) 5%, transparent 13%),
         linear-gradient(to top,    rgba(18,5,0,0.75) 0%, rgba(60,22,0,0.25) 5%, transparent 13%),
-        /* inner vignette to warm the paper centre */
         radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(30,10,0,0.18) 100%);
     }
 
-    /* ── scrollable content ── */
     .scroll-content {
       position: relative;
       z-index: 1;
       max-height: 72vh;
       overflow-y: auto;
       scroll-behavior: smooth;
-      /* red margin line */
       background: linear-gradient(to right,
         transparent 54px,
         rgba(185,45,25,0.38) 54px,
@@ -277,7 +253,6 @@
     .scroll-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
     .scroll-content::-webkit-scrollbar-thumb { background: rgba(120,80,20,0.4); border-radius: 4px; }
 
-    /* ── letter head ── */
     .letter-head {
       padding: 22px 28px 16px;
       text-align: center;
@@ -296,7 +271,6 @@
       font-style: italic;
     }
 
-    /* ── letter body ── */
     .letter-inner {
       background: repeating-linear-gradient(
         transparent 0px, transparent 27px,
@@ -353,7 +327,6 @@
       margin-top: 8px;
     }
 
-    /* ── bottom-right page fold ── */
     .page-fold {
       position: absolute;
       bottom: 0;
@@ -363,33 +336,20 @@
       z-index: 12;
       pointer-events: none;
     }
-    /* crease shadow line */
     .page-fold::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        135deg,
-        transparent 43%,
-        rgba(0,0,0,0.32) 50%,
-        transparent 57%
-      );
+      background: linear-gradient(135deg, transparent 43%, rgba(0,0,0,0.32) 50%, transparent 57%);
     }
-    /* folded-over triangle showing back of parchment */
     .page-fold::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        135deg,
-        transparent 50%,
-        #b89030 51%,
-        #9a7020 100%
-      );
+      background: linear-gradient(135deg, transparent 50%, #b89030 51%, #9a7020 100%);
       box-shadow: -3px -3px 8px rgba(0,0,0,0.25);
     }
 
-    /* ── responsive ── */
     @media (max-width: 480px) {
       .scroll-overlay { padding: 16px; }
       .letter-inner   { padding: 22px 16px 52px 50px; font-size: 16px; }
@@ -403,7 +363,6 @@
   <div class="header-bar"></div>
   <div class="floaters" id="floaters"></div>
 
-  <!-- ══════════════════ MAIN PAGE ══════════════════ -->
   <main class="main-page">
     <div class="hero-emoji" id="heroEmoji" title="Click to read the letter">💌</div>
     <h1 class="hero-title">Happy Father's Day</h1>
@@ -412,22 +371,16 @@
     <button class="open-btn" onclick="openLetter()">Read the Letter 💌</button>
   </main>
 
-  <!-- ══════════════════ SCROLL LETTER ══════════════════ -->
   <div class="scroll-overlay" id="scrollOverlay" onclick="handleOverlayClick(event)">
     <div class="scroll-outer">
 
       <button class="close-btn" onclick="closeLetter()">✕</button>
 
-      <!-- top rod -->
       <div class="scroll-rod"></div>
 
-      <!-- paper shell -->
       <div class="scroll-paper-shell">
-
-        <!-- burnt edges — stays fixed, never scrolls -->
         <div class="burnt-overlay"></div>
 
-        <!-- scrollable letter content -->
         <div class="scroll-content">
 
           <div class="letter-head">
@@ -458,6 +411,12 @@
 
             <p>Every sacrifice you made for this family Heaven has recorded. Not one has been forgotten.</p>
 
+            <p>
+              For every need you've met, for every one of our bills you've paid, for every moment
+              you've spent with us, for every prayer and word of encouragement — we say
+              <em>thank you</em>. Ese o Baba mii, Daalu ❤️❤️❤️
+            </p>
+
             <p>Today we lift these prayers over your life:</p>
 
             <div class="verse-block">
@@ -482,16 +441,13 @@
           </div>
         </div>
 
-        <!-- bottom-right corner fold -->
         <div class="page-fold"></div>
+      </div>
 
-      </div><!-- /scroll-paper-shell -->
-
-      <!-- bottom rod -->
       <div class="scroll-rod"></div>
 
-    </div><!-- /scroll-outer -->
-  </div><!-- /scroll-overlay -->
+    </div>
+  </div>
 
   <script>
     const emojis = [
