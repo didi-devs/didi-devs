@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>a love letter to my father</title>
+  <meta property="og:title"       content="a love letter to my father" />
+  <meta property="og:description" content="A special message for our Daddy, Odukoya Francis Oluwatoyin ❤️" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://didi-devs.github.io/didi-devs/odukoya.html" />
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="a love letter to my father" />
+  <meta name="twitter:description" content="A special message for our Daddy, Odukoya Francis Oluwatoyin ❤️" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Caveat:wght@400;600;700&family=Lato:wght@300;400&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --coffee:     #7a4520;
+      --coffee-mid: #9a6035;
+      --amber:      #d4a040;
+      --amber-lt:   #f0c060;
+      --cream:      #f5e6c0;
+      --cream-dk:   #e0c890;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(ellipse at 50% 30%, #6b3818 0%, #331808 100%);
+      font-family: 'Lato', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .header-bar {
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, #6b3a10, var(--amber), #3b2010, var(--amber-lt), #6b3a10);
+      background-size: 400% 100%;
+      animation: shift 5s linear infinite;
+    }
+    @keyframes shift {
+      0%   { background-position: 0%; }
+      100% { background-position: 400%; }
+    }
+
+    .floaters {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .floater {
+      position: absolute;
+      bottom: -80px;
+      animation: floatUp linear infinite;
+      opacity: 0;
+      user-select: none;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg);    opacity: 0; }
+      10%  { opacity: 0.75; }
+      90%  { opacity: 0.55; }
+      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .main-page {
+      position: relative;
+      z-index: 1;
+      min-height: calc(100vh - 8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      gap: 20px;
+    }
+
+    .hero-emoji {
+      font-size: clamp(80px, 20vw, 140px);
+      line-height: 1;
+      animation: heroFloat 3s ease-in-out infinite;
+      cursor: pointer;
+      filter: drop-shadow(0 12px 32px rgba(212, 160, 64, 0.45));
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0)    scale(1);    }
+      50%       { transform: translateY(-16px) scale(1.07); }
+    }
+
+    .hero-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: var(--amber-lt);
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--cream-dk);
+      font-weight: 300;
+      letter-spacing: 0.4px;
+    }
+
+    .hero-emoji-row {
+      font-size: clamp(1.2rem, 4vw, 1.7rem);
+      letter-spacing: 8px;
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.1); }
+    }
+
+    .open-btn {
+      margin-top: 4px;
+      background: var(--coffee-mid);
+      color: var(--cream);
+      border: 1.5px solid var(--amber);
+      border-radius: 100px;
+      padding: 13px 34px;
+      font-size: 0.95rem;
+      font-family: 'Lato', sans-serif;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+    }
+    .open-btn:hover  { background: #b87040; border-color: var(--amber-lt); transform: scale(1.04); }
+    .open-btn:active { transform: scale(0.97); }
+
+    .scroll-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(8, 3, 1, 0.88);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 28px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      backdrop-filter: blur(4px);
+    }
+    .scroll-overlay.open { opacity: 1; pointer-events: all; }
+
+    .scroll-outer {
+      position: relative;
+      max-width: 580px;
+      width: 100%;
+      transform: translateY(60px) scale(0.92);
+      transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+    }
+    .scroll-overlay.open .scroll-outer { transform: none; }
+
+    .close-btn {
+      position: absolute;
+      top: -14px;
+      right: 2px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--coffee-mid);
+      color: var(--cream);
+      border: 2px solid var(--amber);
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s, transform 0.15s;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+      line-height: 1;
+    }
+    .close-btn:hover  { background: #b87040; transform: scale(1.1); }
+    .close-btn:active { transform: scale(0.93); }
+
+    .scroll-rod {
+      position: relative;
+      z-index: 3;
+      height: 26px;
+      margin: 0 22px;
+      border-radius: 13px;
+      background: linear-gradient(to bottom,
+        #d4a050 0%, #9a6028 18%, #5c3010 50%, #9a6028 82%, #d4a050 100%
+      );
+      box-shadow:
+        0 5px 16px rgba(0,0,0,0.6),
+        inset 0 2px 3px rgba(255,255,255,0.22),
+        inset 0 -2px 3px rgba(0,0,0,0.35);
+    }
+    .scroll-rod::before,
+    .scroll-rod::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 36% 36%, #e0b060, #8b5a20 55%, #3e2008 100%);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.55), inset 0 2px 2px rgba(255,255,255,0.18);
+      z-index: 4;
+    }
+    .scroll-rod::before { left:  -26px; }
+    .scroll-rod::after  { right: -26px; }
+
+    .scroll-paper-shell {
+      position: relative;
+      z-index: 2;
+      margin: -3px 0;
+      overflow: hidden;
+      background: linear-gradient(168deg, #f8edd0 0%, #f2dfa0 45%, #e2c870 100%);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+
+    .burnt-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at   0%   0%, rgba(70,28,6,0.72)  0%, rgba(110,55,12,0.35) 32%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 100%   0%, rgba(70,28,6,0.72)  0%, rgba(110,55,12,0.35) 32%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at   0% 100%, rgba(70,28,6,0.72)  0%, rgba(110,55,12,0.35) 32%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, rgba(70,28,6,0.72)  0%, rgba(110,55,12,0.35) 32%, transparent 60%),
+        linear-gradient(to right,  rgba(60,22,5,0.55) 0%, rgba(100,45,10,0.18) 7%,  transparent 18%),
+        linear-gradient(to left,   rgba(60,22,5,0.55) 0%, rgba(100,45,10,0.18) 7%,  transparent 18%),
+        linear-gradient(to bottom, rgba(60,22,5,0.50) 0%, rgba(100,45,10,0.15) 6%,  transparent 15%),
+        linear-gradient(to top,    rgba(60,22,5,0.50) 0%, rgba(100,45,10,0.15) 6%,  transparent 15%);
+    }
+
+    .scroll-content {
+      position: relative;
+      z-index: 1;
+      max-height: 72vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    .scroll-content::-webkit-scrollbar { width: 4px; }
+    .scroll-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
+    .scroll-content::-webkit-scrollbar-thumb { background: rgba(120,80,20,0.4); border-radius: 4px; }
+
+    .letter-head {
+      padding: 22px 28px 16px;
+      text-align: center;
+      border-bottom: 1px solid rgba(120,80,20,0.2);
+    }
+    .letter-ornament {
+      font-size: 1.05rem;
+      letter-spacing: 10px;
+      color: rgba(100,65,15,0.6);
+      margin-bottom: 5px;
+    }
+    .letter-date {
+      font-family: 'Caveat', cursive;
+      font-size: 14.5px;
+      color: rgba(60,35,8,0.55);
+      font-style: italic;
+    }
+
+    .letter-inner {
+      padding: 28px 32px 60px 32px;
+      font-family: 'Caveat', cursive;
+      font-size: 17.5px;
+      line-height: 30px;
+      color: #2a1204;
+    }
+    .letter-inner p            { margin-bottom: 28px; }
+    .letter-inner p:last-child { margin-bottom: 0; }
+    .letter-inner em           { font-style: italic; }
+    .letter-inner strong       { font-weight: 700; color: #160800; }
+
+    .letter-heading {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.5;
+      color: #160800;
+      margin-bottom: 28px;
+    }
+
+    .verse-block {
+      margin: 0 0 8px;
+      padding: 4px 16px;
+      border-left: 3px solid rgba(130,85,20,0.45);
+      font-style: italic;
+      color: #3a1e06;
+      font-size: 17px;
+      line-height: 28px;
+    }
+    .verse-ref {
+      display: block;
+      text-align: right;
+      font-style: italic;
+      font-size: 14.5px;
+      color: rgba(55,30,8,0.58);
+      margin-bottom: 28px;
+      padding-right: 4px;
+    }
+    .letter-closing {
+      font-size: 19px;
+      font-weight: 700;
+      color: #160800;
+      margin-bottom: 20px !important;
+    }
+    .letter-signature {
+      font-style: italic;
+      font-size: 18px;
+      color: rgba(42,18,4,0.75);
+      margin-top: 8px;
+    }
+
+    .page-fold {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 58px;
+      height: 58px;
+      z-index: 12;
+      pointer-events: none;
+    }
+    .page-fold::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 43%, rgba(0,0,0,0.22) 50%, transparent 57%);
+    }
+    .page-fold::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 50%, #b89030 51%, #9a7020 100%);
+      box-shadow: -3px -3px 8px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 480px) {
+      .scroll-overlay { padding: 16px; }
+      .letter-inner   { padding: 22px 20px 52px 20px; font-size: 16px; }
+      .letter-head    { padding: 18px 16px 14px; }
+      .scroll-rod     { margin: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar"></div>
+  <div class="floaters" id="floaters"></div>
+
+  <main class="main-page">
+    <div class="hero-emoji" id="heroEmoji" title="Click to read the letter">💌</div>
+    <h1 class="hero-title">Happy Father's Day</h1>
+    <p class="hero-subtitle">A Special Message to my Father 👨❤️❤️</p>
+    <div class="hero-emoji-row">❤️ 💕 💖 💗 💝 💘 💞 💓</div>
+    <button class="open-btn" onclick="openLetter()">Read the Letter 💌</button>
+  </main>
+
+  <div class="scroll-overlay" id="scrollOverlay" onclick="handleOverlayClick(event)">
+    <div class="scroll-outer">
+
+      <button class="close-btn" onclick="closeLetter()">✕</button>
+
+      <div class="scroll-rod"></div>
+
+      <div class="scroll-paper-shell">
+        <div class="burnt-overlay"></div>
+
+        <div class="scroll-content">
+
+          <div class="letter-head">
+            <div class="letter-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+            <div class="letter-date">June 21, 2026</div>
+          </div>
+
+          <div class="letter-inner">
+
+            <p class="letter-heading">
+              Happy Father's Day to our Daddy,<br>
+              Daddy Prince of the Odukoya Dynasty,<br>
+              Mr Odukoya Francis Oluwatoyin! 🎉
+            </p>
+
+            <p>
+              There are men who exist in a child's life, and then there are fathers who
+              <em>live</em> for their children — and you, Daddy, have always been the latter.
+              The sleepless nights, the burdens you carry, the sacrifices you make quietly
+              without complaint — we see it all, we feel it all, and we are better because of it.
+            </p>
+
+            <p>And God Himself has been watching too. His Word declares in Hebrews 6:10 —</p>
+
+            <div class="verse-block">
+              "For God is not unrighteous to forget your work and labour of love, which ye
+              have shewed toward his name, in that ye have ministered to the saints,
+              and do minister."
+            </div>
+
+            <p>Every sacrifice you made for this family Heaven has recorded. Not one has been forgotten.</p>
+
+            <p>
+              For every need you've met, for every one of our bills you've paid, for every moment
+              you've spent with us, for every prayer and word of encouragement — we say
+              <em>thank you</em>. Ese o Baba mii, Daalu ❤️❤️❤️
+            </p>
+
+            <p>Today we lift these prayers over your life:</p>
+
+            <div class="verse-block">
+              "The LORD will send rain at the proper time from his rich treasury in the heavens
+              and will bless all the work you do. You will lend to many nations,
+              but you will never need to borrow from them."
+            </div>
+            <span class="verse-ref">— Deuteronomy 28:12 (NLT)</span>
+
+            <div class="verse-block">
+              "The LORD will guarantee a blessing on everything you do and will fill your
+              storehouses with grain. The LORD your God will bless you in the land
+              he is giving you."
+            </div>
+            <span class="verse-ref">— Deuteronomy 28:8 (NLT)</span>
+
+            <p>May God honour you the way you have honoured your responsibility to us.</p>
+
+            <p class="letter-closing"><strong>God bless you Sirrrr. 🙏</strong></p>
+            <p class="letter-closing"><strong>We love youuuuuuuu! ❤️</strong></p>
+            <p class="letter-signature"><em>— The Odukoya Dynasty</em></p>
+
+          </div>
+        </div>
+
+        <div class="page-fold"></div>
+      </div>
+
+      <div class="scroll-rod"></div>
+
+    </div>
+  </div>
+
+  <script>
+    const emojis = [
+      '❤️','💕','💖','💗','💘','💝','💞','💓','💑','💏',
+      '🌹','✨','💌','❤️‍🔥','🥰','😍','💫','🎀','💒','👨‍👩‍👧','🙏'
+    ];
+    const fc = document.getElementById('floaters');
+
+    function spawnFloater() {
+      const el = document.createElement('span');
+      el.className = 'floater';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left = Math.random() * 100 + 'vw';
+      const dur = 7 + Math.random() * 9;
+      el.style.animationDuration = dur + 's';
+      el.style.fontSize = (15 + Math.random() * 24) + 'px';
+      fc.appendChild(el);
+      setTimeout(() => el.remove(), dur * 1000 + 400);
+    }
+
+    for (let i = 0; i < 16; i++) setTimeout(spawnFloater, Math.random() * 5000);
+    setInterval(spawnFloater, 850);
+
+    function openLetter()  { document.getElementById('scrollOverlay').classList.add('open');    }
+    function closeLetter() { document.getElementById('scrollOverlay').classList.remove('open'); }
+    function handleOverlayClick(e) { if (e.target === e.currentTarget) closeLetter(); }
+
+    document.getElementById('heroEmoji').addEventListener('click', openLetter);
+  </script>
+</body>
+</html>
