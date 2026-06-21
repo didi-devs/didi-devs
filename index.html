@@ -18,9 +18,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --espresso:   #1a0c05;
-      --coffee:     #3b2010;
-      --coffee-mid: #7b4f2e;
+      --coffee:     #7a4520;
+      --coffee-mid: #9a6035;
       --amber:      #d4a040;
       --amber-lt:   #f0c060;
       --cream:      #f5e6c0;
@@ -29,7 +28,7 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(ellipse at 50% 30%, #2e1a0a 0%, #120800 100%);
+      background: radial-gradient(ellipse at 50% 30%, #a05c2a 0%, #6b3a18 100%);
       font-family: 'Lato', sans-serif;
       overflow-x: hidden;
     }
@@ -128,16 +127,17 @@
       letter-spacing: 0.5px;
       cursor: pointer;
       transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.35);
     }
-    .open-btn:hover  { background: #9a6035; border-color: var(--amber-lt); transform: scale(1.04); }
+    .open-btn:hover  { background: #b87040; border-color: var(--amber-lt); transform: scale(1.04); }
     .open-btn:active { transform: scale(0.97); }
 
+    /* ── scroll overlay ── */
     .scroll-overlay {
       position: fixed;
       inset: 0;
       z-index: 300;
-      background: rgba(8, 3, 1, 0.9);
+      background: rgba(8, 3, 1, 0.88);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -178,9 +178,10 @@
       box-shadow: 0 3px 10px rgba(0,0,0,0.6);
       line-height: 1;
     }
-    .close-btn:hover  { background: #9a6035; transform: scale(1.1); }
+    .close-btn:hover  { background: #b87040; transform: scale(1.1); }
     .close-btn:active { transform: scale(0.93); }
 
+    /* ── wooden scroll rods ── */
     .scroll-rod {
       position: relative;
       z-index: 3;
@@ -210,6 +211,7 @@
     .scroll-rod::before { left:  -26px; }
     .scroll-rod::after  { right: -26px; }
 
+    /* ── parchment paper ── */
     .scroll-paper-shell {
       position: relative;
       z-index: 2;
@@ -217,23 +219,6 @@
       overflow: hidden;
       background: linear-gradient(168deg, #f8edd0 0%, #f2dfa0 45%, #e2c870 100%);
       box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-    }
-
-    .burnt-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 65% 55% at   0%   0%, rgba(8,2,0,0.97)  0%, rgba(28,8,0,0.6)  28%, transparent 58%),
-        radial-gradient(ellipse 65% 55% at 100%   0%, rgba(8,2,0,0.97)  0%, rgba(28,8,0,0.6)  28%, transparent 58%),
-        radial-gradient(ellipse 65% 55% at   0% 100%, rgba(8,2,0,0.97)  0%, rgba(28,8,0,0.6)  28%, transparent 58%),
-        radial-gradient(ellipse 65% 55% at 100% 100%, rgba(8,2,0,0.97)  0%, rgba(28,8,0,0.6)  28%, transparent 58%),
-        linear-gradient(to right,  rgba(18,5,0,0.82) 0%, rgba(60,22,0,0.3) 6%,  transparent 17%),
-        linear-gradient(to left,   rgba(18,5,0,0.82) 0%, rgba(60,22,0,0.3) 6%,  transparent 17%),
-        linear-gradient(to bottom, rgba(18,5,0,0.75) 0%, rgba(60,22,0,0.25) 5%, transparent 13%),
-        linear-gradient(to top,    rgba(18,5,0,0.75) 0%, rgba(60,22,0,0.25) 5%, transparent 13%),
-        radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(30,10,0,0.18) 100%);
     }
 
     .scroll-content {
@@ -327,6 +312,7 @@
       margin-top: 8px;
     }
 
+    /* ── bottom-right page fold ── */
     .page-fold {
       position: absolute;
       bottom: 0;
@@ -340,14 +326,14 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, transparent 43%, rgba(0,0,0,0.32) 50%, transparent 57%);
+      background: linear-gradient(135deg, transparent 43%, rgba(0,0,0,0.22) 50%, transparent 57%);
     }
     .page-fold::after {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(135deg, transparent 50%, #b89030 51%, #9a7020 100%);
-      box-shadow: -3px -3px 8px rgba(0,0,0,0.25);
+      box-shadow: -3px -3px 8px rgba(0,0,0,0.2);
     }
 
     @media (max-width: 480px) {
@@ -379,8 +365,6 @@
       <div class="scroll-rod"></div>
 
       <div class="scroll-paper-shell">
-        <div class="burnt-overlay"></div>
-
         <div class="scroll-content">
 
           <div class="letter-head">
@@ -475,7 +459,6 @@
     function closeLetter() { document.getElementById('scrollOverlay').classList.remove('open'); }
     function handleOverlayClick(e) { if (e.target === e.currentTarget) closeLetter(); }
 
-    setTimeout(openLetter, 3000);
     document.getElementById('heroEmoji').addEventListener('click', openLetter);
   </script>
 </body>
