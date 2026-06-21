@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>a love letter to my father</title>
+
+  <!-- Link preview tags (WhatsApp, iMessage, Twitter, etc.) -->
+  <meta property="og:title"       content="a love letter to my father" />
+  <meta property="og:description" content="A special message for our Daddy, Prince of the Oladejo Dynasty ❤️" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://didi-devs.github.io/didi-devs/" />
+  <meta name="twitter:card"        content="summary" />
+  <meta name="twitter:title"       content="a love letter to my father" />
+  <meta name="twitter:description" content="A special message for our Daddy, Prince of the Oladejo Dynasty ❤️" />
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Caveat:wght@400;600;700&family=Lato:wght@300;400&display=swap');
 
@@ -259,7 +269,7 @@
       margin-bottom: 28px;
     }
 
-    .letter-inner em   { font-style: italic; }
+    .letter-inner em     { font-style: italic; }
     .letter-inner strong { font-weight: 700; color: #160800; }
 
     .verse-block {
@@ -296,9 +306,9 @@
     }
 
     @media (max-width: 480px) {
-      .letter-inner   { padding: 24px 18px 36px 54px; font-size: 16px; }
-      .letter-head    { padding: 18px 18px 14px; }
-      .close-btn      { top: -12px; right: -8px; }
+      .letter-inner { padding: 24px 18px 36px 54px; font-size: 16px; }
+      .letter-head  { padding: 18px 18px 14px; }
+      .close-btn    { top: -12px; right: -8px; }
     }
   </style>
 </head>
@@ -356,9 +366,7 @@
             that thou settest thine hand unto."
           </div>
           <span class="verse-ref">— Deuteronomy 28:8</span>
-          <p>
-            May God honour you the way you have honoured your responsibility to us.
-          </p>
+          <p>May God honour you the way you have honoured your responsibility to us.</p>
           <p class="letter-closing"><strong>God bless you Sirrrr. 🙏</strong></p>
           <p class="letter-closing"><strong>We love youuuuuuuu! ❤️</strong></p>
           <p class="letter-signature"><em>— The Oladejo Dynasty</em></p>
@@ -389,15 +397,9 @@
     for (let i = 0; i < 16; i++) setTimeout(spawnFloater, Math.random() * 5000);
     setInterval(spawnFloater, 850);
 
-    function openLetter() {
-      document.getElementById('letterOverlay').classList.add('open');
-    }
-    function closeLetter() {
-      document.getElementById('letterOverlay').classList.remove('open');
-    }
-    function handleOverlayClick(e) {
-      if (e.target === e.currentTarget) closeLetter();
-    }
+    function openLetter()  { document.getElementById('letterOverlay').classList.add('open');    }
+    function closeLetter() { document.getElementById('letterOverlay').classList.remove('open'); }
+    function handleOverlayClick(e) { if (e.target === e.currentTarget) closeLetter(); }
 
     setTimeout(openLetter, 3000);
     document.getElementById('heroEmoji').addEventListener('click', openLetter);
