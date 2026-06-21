@@ -221,7 +221,7 @@
       box-shadow: 0 8px 40px rgba(0,0,0,0.5);
     }
 
-    /* warm amber-toned edge shadow — matches parchment, not black */
+    /* warm amber-toned edge vignette */
     .burnt-overlay {
       position: absolute;
       inset: 0;
@@ -244,12 +244,6 @@
       max-height: 72vh;
       overflow-y: auto;
       scroll-behavior: smooth;
-      background: linear-gradient(to right,
-        transparent 54px,
-        rgba(185,45,25,0.38) 54px,
-        rgba(185,45,25,0.38) 56px,
-        transparent 56px
-      );
     }
     .scroll-content::-webkit-scrollbar { width: 4px; }
     .scroll-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
@@ -258,7 +252,7 @@
     .letter-head {
       padding: 22px 28px 16px;
       text-align: center;
-      border-bottom: 1px solid rgba(120,80,20,0.3);
+      border-bottom: 1px solid rgba(120,80,20,0.2);
     }
     .letter-ornament {
       font-size: 1.05rem;
@@ -274,15 +268,10 @@
     }
 
     .letter-inner {
-      background: repeating-linear-gradient(
-        transparent 0px, transparent 27px,
-        rgba(105,72,18,0.15) 27px, rgba(105,72,18,0.15) 28px
-      );
-      background-attachment: local;
-      padding: 28px 30px 60px 72px;
+      padding: 28px 32px 60px 32px;
       font-family: 'Caveat', cursive;
       font-size: 17.5px;
-      line-height: 28px;
+      line-height: 30px;
       color: #2a1204;
     }
     .letter-inner p            { margin-bottom: 28px; }
@@ -293,14 +282,14 @@
     .letter-heading {
       font-size: 20px;
       font-weight: 700;
-      line-height: 1.45;
+      line-height: 1.5;
       color: #160800;
       margin-bottom: 28px;
     }
 
     .verse-block {
       margin: 0 0 8px;
-      padding: 2px 14px;
+      padding: 4px 16px;
       border-left: 3px solid rgba(130,85,20,0.45);
       font-style: italic;
       color: #3a1e06;
@@ -355,7 +344,7 @@
 
     @media (max-width: 480px) {
       .scroll-overlay { padding: 16px; }
-      .letter-inner   { padding: 22px 16px 52px 50px; font-size: 16px; }
+      .letter-inner   { padding: 22px 20px 52px 20px; font-size: 16px; }
       .letter-head    { padding: 18px 16px 14px; }
       .scroll-rod     { margin: 0 16px; }
     }
