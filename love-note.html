@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Love Note for You 💌</title>
+  <title>Happy Father's Day 💌</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lato:wght@300;400&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Caveat:wght@400;600;700&family=Lato:wght@300;400&display=swap');
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -22,10 +22,9 @@
       background: var(--white);
       font-family: 'Lato', sans-serif;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* ── animated gradient header bar ── */
+    /* ── gradient header bar ── */
     .header-bar {
       width: 100%;
       height: 8px;
@@ -34,11 +33,11 @@
       animation: gradientShift 4s linear infinite;
     }
     @keyframes gradientShift {
-      0%   { background-position: 0%   50%; }
-      100% { background-position: 400% 50%; }
+      0%   { background-position: 0%; }
+      100% { background-position: 400%; }
     }
 
-    /* ── floating emojis background ── */
+    /* ── floating emojis ── */
     .floaters {
       pointer-events: none;
       position: fixed;
@@ -49,254 +48,385 @@
     .floater {
       position: absolute;
       bottom: -80px;
-      font-size: clamp(18px, 3vw, 36px);
       animation: floatUp linear infinite;
       opacity: 0;
       user-select: none;
     }
     @keyframes floatUp {
-      0%   { transform: translateY(0)   rotate(0deg);   opacity: 0;   }
-      10%  { opacity: 0.75; }
-      90%  { opacity: 0.55; }
+      0%   { transform: translateY(0) rotate(0deg);    opacity: 0; }
+      10%  { opacity: 0.72; }
+      90%  { opacity: 0.52; }
       100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
     }
 
-    /* ── main card ── */
-    .wrapper {
+    /* ════════════════════════════════
+       MAIN PAGE
+    ════════════════════════════════ */
+    .main-page {
       position: relative;
       z-index: 1;
+      min-height: calc(100vh - 8px);
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 48px 16px 80px;
-    }
-
-    .card {
-      background: var(--white);
-      border: 2px solid var(--red);
-      border-radius: 24px;
-      max-width: 600px;
-      width: 100%;
-      padding: 48px 40px;
-      box-shadow:
-        0 4px 24px rgba(192, 57, 43, 0.18),
-        0 1px 6px  rgba(26, 58, 107, 0.12);
-      animation: fadeSlideIn 0.9s cubic-bezier(.22,1,.36,1) both;
-    }
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(36px); }
-      to   { opacity: 1; transform: translateY(0);    }
-    }
-
-    /* top emoji row */
-    .emoji-row {
-      text-align: center;
-      font-size: 2rem;
-      letter-spacing: 6px;
-      margin-bottom: 24px;
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1);    }
-      50%       { transform: scale(1.12); }
-    }
-
-    /* tag */
-    .tag {
-      display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 6px;
-      background: var(--red);
-      color: var(--white);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
-      padding: 4px 14px;
-      border-radius: 100px;
-      margin-bottom: 20px;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      gap: 18px;
     }
 
-    .card-header {
-      margin-bottom: 24px;
+    .hero-emoji {
+      font-size: clamp(80px, 20vw, 140px);
+      line-height: 1;
+      animation: heroFloat 3s ease-in-out infinite;
+      cursor: pointer;
+      filter: drop-shadow(0 10px 28px rgba(192, 57, 43, 0.3));
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0)    scale(1);    }
+      50%       { transform: translateY(-16px) scale(1.07); }
     }
 
-    h1 {
+    .hero-title {
       font-family: 'Dancing Script', cursive;
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(1.8rem, 5vw, 3rem);
       color: var(--red);
       line-height: 1.2;
-      margin-bottom: 8px;
     }
 
-    .subtitle {
-      font-size: 0.88rem;
+    .hero-subtitle {
+      font-size: 1rem;
       color: var(--blue);
-      letter-spacing: 0.5px;
+      font-weight: 300;
+      letter-spacing: 0.4px;
     }
 
-    /* divider */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 24px 0;
+    .hero-emoji-row {
+      font-size: clamp(1.2rem, 4vw, 1.7rem);
+      letter-spacing: 8px;
+      animation: pulse 2.2s ease-in-out infinite;
     }
-    .divider-line {
-      flex: 1;
-      height: 1.5px;
-      background: linear-gradient(90deg, transparent, var(--red2), transparent);
-    }
-    .divider-icon { font-size: 1.2rem; }
-
-    /* body text */
-    .note-body {
-      font-size: 1.05rem;
-      line-height: 1.9;
-      color: #222;
-    }
-    .note-body p { margin-bottom: 16px; }
-    .note-body p:last-child { margin-bottom: 0; }
-
-    .highlight {
-      color: var(--red);
-      font-weight: 600;
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.1); }
     }
 
-    /* signature */
-    .signature {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px dashed rgba(192, 57, 43, 0.3);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .sig-name {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.7rem;
-      color: var(--blue);
-    }
-    .sig-hearts {
-      font-size: 1.6rem;
-      letter-spacing: 4px;
-    }
-
-    /* love counter chip */
-    .love-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 28px;
-      background: #fef0f0;
-      border: 1.5px solid var(--red2);
+    .open-btn {
+      margin-top: 6px;
+      background: var(--red);
+      color: #fff;
+      border: none;
       border-radius: 100px;
-      padding: 8px 20px;
-      font-size: 0.85rem;
-      color: var(--red);
-      font-weight: 600;
+      padding: 13px 32px;
+      font-size: 0.95rem;
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
       cursor: pointer;
       transition: background 0.2s, transform 0.15s;
-      user-select: none;
+      box-shadow: 0 4px 16px rgba(192, 57, 43, 0.35);
     }
-    .love-chip:hover  { background: var(--red2); color: #fff; transform: scale(1.04); }
-    .love-chip:active { transform: scale(0.97); }
+    .open-btn:hover  { background: var(--red2); transform: scale(1.04); }
+    .open-btn:active { transform: scale(0.97); }
 
-    /* footer */
-    .footer {
+    /* ════════════════════════════════
+       LETTER OVERLAY
+    ════════════════════════════════ */
+    .letter-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(18, 8, 2, 0.82);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      backdrop-filter: blur(3px);
+    }
+    .letter-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* letter wrapper — holds paper + close btn */
+    .letter-wrapper {
       position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 0 16px 32px;
-      font-size: 0.78rem;
-      color: #aaa;
-      letter-spacing: 0.3px;
+      max-width: 580px;
+      width: 100%;
+      transform: translateY(60px) scale(0.92);
+      transition: transform 0.6s cubic-bezier(.22, 1, .36, 1);
     }
-    .footer a { color: var(--blue2); text-decoration: none; }
-    .footer a:hover { text-decoration: underline; }
+    .letter-overlay.open .letter-wrapper {
+      transform: translateY(0) scale(1);
+    }
 
-    /* responsive */
+    /* close button */
+    .close-btn {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      border: 2.5px solid #fff;
+      font-size: 17px;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s, transform 0.15s;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+      line-height: 1;
+    }
+    .close-btn:hover  { background: var(--red2); transform: scale(1.12); }
+    .close-btn:active { transform: scale(0.94); }
+
+    /* ────────────────────────────────
+       THE LETTER PAPER  (1990 aesthetic)
+    ──────────────────────────────── */
+    .letter-paper {
+      position: relative;
+      /* parchment base + left red margin line */
+      background:
+        linear-gradient(to right,
+          transparent 54px,
+          rgba(190, 48, 28, 0.38) 54px,
+          rgba(190, 48, 28, 0.38) 56.5px,
+          transparent 56.5px
+        ),
+        linear-gradient(168deg, #f7eac6 0%, #f0d89a 45%, #dfc070 100%);
+      border: 1.5px solid #b08540;
+      border-radius: 2px 2px 3px 3px;
+      max-height: 84vh;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      /* paper depth */
+      box-shadow:
+        0 1px 2px  rgba(0,0,0,0.10),
+        0 6px 18px rgba(0,0,0,0.32),
+        0 24px 64px rgba(0,0,0,0.28),
+        inset 0 1px 0  rgba(255,255,255,0.55),
+        inset 3px 0 0  rgba(255,255,255,0.18),
+        inset -1px 0 0 rgba(0,0,0,0.06);
+    }
+
+    /* subtle scrollbar */
+    .letter-paper::-webkit-scrollbar { width: 5px; }
+    .letter-paper::-webkit-scrollbar-track { background: rgba(0,0,0,0.04); }
+    .letter-paper::-webkit-scrollbar-thumb { background: rgba(130,90,25,0.4); border-radius: 4px; }
+
+    /* top highlight edge (sheen) */
+    .letter-paper::before {
+      content: '';
+      position: sticky;
+      top: 0;
+      display: block;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
+      pointer-events: none;
+    }
+
+    /* ── letter head ── */
+    .letter-head {
+      padding: 22px 28px 16px 28px;
+      text-align: center;
+      border-bottom: 1px solid rgba(120, 80, 20, 0.28);
+    }
+    .letter-ornament {
+      font-size: 1.1rem;
+      letter-spacing: 10px;
+      color: rgba(100, 65, 15, 0.65);
+      margin-bottom: 5px;
+    }
+    .letter-date {
+      font-family: 'Caveat', cursive;
+      font-size: 14.5px;
+      color: rgba(60, 35, 8, 0.55);
+      font-style: italic;
+    }
+
+    /* ── letter inner content ── */
+    .letter-inner {
+      /* ruled lines on the content area only, scroll-synced */
+      background: repeating-linear-gradient(
+        transparent 0px,
+        transparent 27px,
+        rgba(105, 72, 18, 0.16) 27px,
+        rgba(105, 72, 18, 0.16) 28px
+      );
+      background-attachment: local;
+      padding: 28px 30px 44px 72px; /* left side clears the margin line */
+      font-family: 'Caveat', cursive;
+      font-size: 17.5px;
+      line-height: 28px;
+      color: #2a1204;
+    }
+
+    .letter-inner p { margin-bottom: 28px; }
+    .letter-inner p:last-child { margin-bottom: 0; }
+
+    .letter-heading {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #160800;
+      margin-bottom: 28px;
+    }
+
+    .letter-inner em   { font-style: italic; }
+    .letter-inner strong { font-weight: 700; color: #160800; }
+
+    /* Bible verse block */
+    .verse-block {
+      margin: 0 0 8px 0;
+      padding: 2px 14px;
+      border-left: 3px solid rgba(130, 85, 20, 0.45);
+      font-style: italic;
+      color: #3a1e06;
+      font-size: 17px;
+      line-height: 28px;
+    }
+    .verse-ref {
+      display: block;
+      text-align: right;
+      font-style: italic;
+      font-size: 14.5px;
+      color: rgba(55, 30, 8, 0.58);
+      margin-bottom: 28px;
+      padding-right: 4px;
+    }
+
+    .letter-closing {
+      font-size: 19px;
+      font-weight: 700;
+      color: #160800;
+      margin-bottom: 20px !important;
+    }
+
+    .letter-signature {
+      font-style: italic;
+      font-size: 18px;
+      color: rgba(42, 18, 4, 0.75);
+      margin-top: 8px;
+    }
+
+    /* ── responsive ── */
     @media (max-width: 480px) {
-      .card { padding: 32px 22px; }
+      .letter-inner   { padding: 24px 18px 36px 54px; font-size: 16px; }
+      .letter-head    { padding: 18px 18px 14px; }
+      .close-btn      { top: -12px; right: -8px; }
     }
   </style>
 </head>
 <body>
 
   <div class="header-bar"></div>
-
-  <!-- floating background emojis -->
   <div class="floaters" id="floaters"></div>
 
-  <div class="wrapper">
-    <div class="card">
+  <!-- ══════════════════════════
+       MAIN PAGE
+  ══════════════════════════ -->
+  <main class="main-page">
 
-      <div class="emoji-row">💘 💕 ❤️ 💖 💝</div>
+    <div class="hero-emoji" id="heroEmoji" title="Click to read the letter">💌</div>
 
-      <div class="card-header">
-        <div class="tag">💌 Love Note</div>
-        <h1>You Mean Everything to Me</h1>
-        <p class="subtitle">A little something straight from the heart 💙</p>
-      </div>
+    <h1 class="hero-title">Happy Father's Day</h1>
 
-      <div class="divider">
-        <div class="divider-line"></div>
-        <span class="divider-icon">❤️‍🔥</span>
-        <div class="divider-line"></div>
-      </div>
+    <p class="hero-subtitle">A very special message is on its way... 💙</p>
 
-      <div class="note-body">
-        <p>
-          Every single day I find a new reason to be grateful that you exist in my world. 💗
-          You are <span class="highlight">extraordinary</span> — not because you are perfect,
-          but because you are perfectly <em>you</em>.
-        </p>
-        <p>
-          Your laugh is my favourite sound 🎶, your smile my favourite sight 😍, and your
-          presence my favourite feeling. When you walk into a room, everything gets a little
-          brighter — like the whole universe decided to show off. 💫
-        </p>
-        <p>
-          I love how you care so deeply 💞, how you see beauty in ordinary moments 🌹,
-          and how you make even the quiet Tuesday evenings feel like a celebration. 🎉
-          You are the <span class="highlight">magic</span> in my everyday life. ✨
-        </p>
-        <p>
-          No matter how many days go by, I will never stop choosing you — over and over again,
-          a thousand times, without hesitation. 💑 You are my home, my peace, my adventure,
-          and my greatest love story. 💌
-        </p>
-        <p>
-          So here it is, written down so you can read it whenever you need to: 💝
-          <strong>I love you — completely, endlessly, ridiculously.</strong> ❤️
-        </p>
-      </div>
+    <div class="hero-emoji-row">❤️ 💕 💖 💗 💝 💘 💞 💓</div>
 
-      <div class="signature">
-        <div class="sig-name">Forever Yours 💙</div>
-        <div class="sig-hearts">❤️ 💕 💖</div>
-      </div>
+    <button class="open-btn" onclick="openLetter()">Read the Letter 💌</button>
 
-      <div>
-        <div class="love-chip" onclick="sendLove(this)">
-          <span>💗</span>
-          <span id="love-count">Send Love</span>
+  </main>
+
+  <!-- ══════════════════════════
+       LETTER OVERLAY
+  ══════════════════════════ -->
+  <div class="letter-overlay" id="letterOverlay" onclick="handleOverlayClick(event)">
+    <div class="letter-wrapper">
+
+      <button class="close-btn" onclick="closeLetter()" aria-label="Close letter">✕</button>
+
+      <div class="letter-paper">
+
+        <!-- letter head -->
+        <div class="letter-head">
+          <div class="letter-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+          <div class="letter-date">Father's Day &nbsp;·&nbsp; June 2025</div>
+        </div>
+
+        <!-- letter body -->
+        <div class="letter-inner">
+
+          <p class="letter-heading">
+            Happy Father's Day to our Daddy,<br>
+            Daddy Prince of the Oladejo Dynasty! 🎉
+          </p>
+
+          <p>
+            There are men who exist in a child's life, and then there are fathers who
+            <em>live</em> for their children — and you, Daddy, have always been the latter.
+            The sleepless nights, the burdens you carry, the sacrifices you make quietly
+            without complaint — we see it all, we feel it all, and we are better because of it.
+          </p>
+
+          <p>
+            And God Himself has been watching too. His Word declares in Hebrews 6:10 —
+          </p>
+
+          <div class="verse-block">
+            "For God is not unrighteous to forget your work and labour of love, which ye
+            have showed toward his name, in that ye have ministered to the saints, and do minister."
+          </div>
+
+          <p>
+            Every sacrifice you made for this family Heaven has recorded. Not one has been forgotten.
+          </p>
+
+          <p>Today we lift these prayers over your life:</p>
+
+          <div class="verse-block">
+            "The LORD shall open unto thee his good treasure, the heaven to give the rain
+            unto thy land in his season, and to bless all the work of thine hand: and thou
+            shalt lend unto many nations, and thou shalt not borrow."
+          </div>
+          <span class="verse-ref">— Deuteronomy 28:12</span>
+
+          <div class="verse-block">
+            "The LORD shall command the blessing upon thee in thy storehouses, and in all
+            that thou settest thine hand unto."
+          </div>
+          <span class="verse-ref">— Deuteronomy 28:8</span>
+
+          <p>
+            May God honour you the way you have honoured your responsibility to us.
+          </p>
+
+          <p class="letter-closing"><strong>God bless you Sirrrr. 🙏</strong></p>
+
+          <p class="letter-closing"><strong>We love youuuuuuuu! ❤️</strong></p>
+
+          <p class="letter-signature"><em>— The Oladejo Dynasty</em></p>
+
         </div>
       </div>
-
     </div>
-  </div>
-
-  <div class="footer">
-    Created with ❤️ &nbsp;·&nbsp; <a href="https://lovenotesai.site">lovenotesai.site</a>
   </div>
 
   <script>
     /* ── floating emojis ── */
-    const emojis = ['❤️','💕','💖','💗','💘','💝','💞','💓','💑','💏','🌹','✨','💌','❤️‍🔥','🥰','😍','💫','🎀'];
-    const container = document.getElementById('floaters');
+    const emojis = [
+      '❤️','💕','💖','💗','💘','💝','💞','💓','💑','💏',
+      '🌹','✨','💌','❤️‍🔥','🥰','😍','💫','🎀','💒','👨‍👩‍👧','🙏'
+    ];
+    const floaterContainer = document.getElementById('floaters');
 
     function spawnFloater() {
       const el = document.createElement('span');
@@ -305,28 +435,31 @@
       el.style.left = Math.random() * 100 + 'vw';
       const dur = 7 + Math.random() * 9;
       el.style.animationDuration = dur + 's';
-      el.style.animationDelay = '0s';
-      el.style.fontSize = (16 + Math.random() * 22) + 'px';
-      container.appendChild(el);
-      setTimeout(() => el.remove(), dur * 1000 + 500);
+      el.style.fontSize = (15 + Math.random() * 24) + 'px';
+      floaterContainer.appendChild(el);
+      setTimeout(() => el.remove(), dur * 1000 + 400);
     }
 
-    // seed initial batch
-    for (let i = 0; i < 14; i++) {
-      setTimeout(spawnFloater, Math.random() * 6000);
-    }
-    setInterval(spawnFloater, 900);
+    for (let i = 0; i < 16; i++) setTimeout(spawnFloater, Math.random() * 5000);
+    setInterval(spawnFloater, 850);
 
-    /* ── love button ── */
-    let loveCount = 0;
-    function sendLove(btn) {
-      loveCount++;
-      document.getElementById('love-count').textContent =
-        loveCount === 1 ? '1 Love Sent 💗' : loveCount + ' Loves Sent 💗';
-
-      // burst of floaters on click
-      for (let i = 0; i < 6; i++) setTimeout(spawnFloater, i * 80);
+    /* ── letter open / close ── */
+    function openLetter() {
+      document.getElementById('letterOverlay').classList.add('open');
     }
+    function closeLetter() {
+      document.getElementById('letterOverlay').classList.remove('open');
+    }
+    function handleOverlayClick(e) {
+      if (e.target === e.currentTarget) closeLetter();
+    }
+
+    // open automatically after 3 seconds
+    setTimeout(openLetter, 3000);
+
+    // clicking the big 💌 also opens the letter
+    document.getElementById('heroEmoji').addEventListener('click', openLetter);
   </script>
+
 </body>
 </html>
