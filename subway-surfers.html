@@ -194,7 +194,7 @@
     if (state !== STATE.PLAY || player.dead) return;
     if (!player.jumping && !player.sliding) {
       player.jumping = true;
-      player.vy = 9.2;
+      player.vy = 6.0;
     }
   }
   function doSlide() {
@@ -333,8 +333,8 @@
 
     // jump physics
     if (player.jumping) {
-      player.vy -= 22 * dt;
-      player.y += player.vy * dt * 22;
+      player.vy -= 18 * dt;
+      player.y += player.vy * dt;
       if (player.y <= 0) { player.y = 0; player.jumping = false; player.vy = 0; }
     }
     // slide timer
