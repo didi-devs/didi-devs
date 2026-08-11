@@ -131,8 +131,8 @@
     const botHalf = W * 0.62;
     return topHalf + (botHalf - topHalf) * z;
   }
-  function yAt(z) { return horizonY() + (baseY() - horizonY()) * Math.pow(z, 1.35); }
-  function scaleAt(z) { return 0.12 + 0.88 * Math.pow(z, 1.4); }
+  function yAt(z) { return horizonY() + (baseY() - horizonY()) * Math.pow(z, 1.08); }
+  function scaleAt(z) { return 0.16 + 0.84 * Math.pow(z, 1.12); }
   function laneX(lane, z) {
     const half = trackHalfWidthAt(z);
     return W / 2 + lane * half * 0.66;
@@ -165,8 +165,8 @@
       multiT: 0,
     };
     world = {
-      speed: 0.34,          // z-units per second progress rate
-      baseSpeed: 0.34,
+      speed: 0.26,          // z-units per second progress rate
+      baseSpeed: 0.26,
       dist: 0,
       coins: 0,
       t: 0,
@@ -319,7 +319,7 @@
     player.runT += dt;
 
     // difficulty ramp
-    world.speed = world.baseSpeed + Math.min(world.t * 0.006, 0.30);
+    world.speed = world.baseSpeed + Math.min(world.t * 0.005, 0.22);
     const jetpack = player.jetT > 0;
 
     if (!player.dead) {
@@ -450,10 +450,65 @@
     drawSky();
     drawTunnel();
     drawTrack();
+    drawLaneHighlight();
     drawObjectsFar();
+    drawStrikeZone();
     drawObjectsNear();
     if (state !== STATE.START) drawPlayer();
     drawVignette();
+  }
+
+  // A bright band on the ground marking exactly where collisions happen,
+  // so it's obvious whether an oncoming obstacle will reach the player
+  // before or after it. This is the single biggest fix for "can't tell
+  // where I am relative to things" in a perspective runner.
+  function drawStrikeZone() {
+    if (!player) return;
+    const z = player.z;
+    const y = yAt(z);
+    const half = trackHalfWidthAt(z);
+    const pulse = 0.55 + Math.sin(world.t * 5) * 0.15;
+    ctx.save();
+    const g = ctx.createLinearGradient(0, y - 10, 0, y + 14);
+    g.addColorStop(0, "rgba(255,210,80,0)");
+    g.addColorStop(0.5, `rgba(255,210,80,${pulse})`);
+    g.addColorStop(1, "rgba(255,210,80,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(W / 2 - half * 1.4, y - 10, half * 2.8, 24);
+    ctx.restore();
+  }
+
+  // Vertical light beam down the player's current lane so it always reads
+  // clearly which lane obstacles need to line up with to be a threat.
+  function drawLaneHighlight() {
+    if (!player) return;
+    const lane = laneOf(player.lane);
+    ctx.save();
+    ctx.globalAlpha = 0.14;
+    const grad = ctx.createLinearGradient(0, horizonY(), 0, baseY());
+    grad.addColorStop(0, "rgba(255,180,60,0)");
+    grad.addColorStop(1, "rgba(255,180,60,0.9)");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(laneX(lane, 0) - trackHalfWidthAt(0) * 0.3, horizonY());
+    ctx.lineTo(laneX(lane, 0) + trackHalfWidthAt(0) * 0.3, horizonY());
+    ctx.lineTo(laneX(lane, 1) + trackHalfWidthAt(1) * 0.3, baseY());
+    ctx.lineTo(laneX(lane, 1) - trackHalfWidthAt(1) * 0.3, baseY());
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // A ground-projected ellipse under every obstacle/player, independent of
+  // jump height, is the classic depth cue that tells you exactly where
+  // something actually is on the track (vs. how big it's drawn).
+  function drawGroundShadow(x, y, s, wide) {
+    ctx.save();
+    ctx.fillStyle = "rgba(0,0,0,0.45)";
+    ctx.beginPath();
+    ctx.ellipse(x, y, (wide ? 70 : 34) * s, (wide ? 16 : 9) * s, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
   }
 
   function drawSky() {
@@ -556,9 +611,9 @@
     const y = yAt(o.z);
     const s = scaleAt(o.z);
 
-    if (o.type === "train") { drawTrain(x, y, s); return; }
-    if (o.type === "hurdle") { drawHurdle(x, y, s); return; }
-    if (o.type === "gate") { drawGate(x, y, s); return; }
+    if (o.type === "train") { drawGroundShadow(x, y, s, true); drawTrain(x, y, s); return; }
+    if (o.type === "hurdle") { drawGroundShadow(x, y, s, false); drawHurdle(x, y, s); return; }
+    if (o.type === "gate") { drawGroundShadow(x, y, s, false); drawGate(x, y, s); return; }
     if (o.type === "coin") { drawCoin(x, y, s, o.z); return; }
     if (o.type === "jetpack") { drawPower(x, y, s, "🚀"); return; }
     if (o.type === "magnet") { drawPower(x, y, s, "🧲"); return; }
@@ -576,6 +631,9 @@
     ctx.fillStyle = g;
     roundRect(-w/2, -h/2, w, h, 10 * s);
     ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,0.55)";
+    ctx.lineWidth = 3 * s;
+    ctx.stroke();
     // stripe
     ctx.fillStyle = "#ffcf3f";
     ctx.fillRect(-w/2, -h*0.06, w, h*0.10);
@@ -598,6 +656,9 @@
     ctx.fillStyle = "#ff5b3c";
     roundRect(-w/2, -h/2, w, h, 8*s);
     ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,0.6)";
+    ctx.lineWidth = 3 * s;
+    ctx.stroke();
     ctx.fillStyle = "#ffe08a";
     for (let i = -2; i <= 2; i++) {
       ctx.save();
@@ -619,6 +680,9 @@
     ctx.fillStyle = "#ffb020";
     roundRect(x - w/2, topY - barH/2, w, barH, 6*s);
     ctx.fill();
+    ctx.strokeStyle = "rgba(255,255,255,0.6)";
+    ctx.lineWidth = 2.5 * s;
+    ctx.stroke();
     ctx.restore();
   }
 
@@ -672,9 +736,14 @@
     if (!player) return;
     const s = scaleAt(player.z);
     const x = player.curX + (state === STATE.START ? 0 : 0);
-    let y = yAt(player.z) - player.y * 130 * s;
+    const groundY = yAt(player.z);
+    let y = groundY - player.y * 130 * s;
     const runBob = player.dead ? 0 : Math.sin(player.runT * 16) * 5 * s;
     const squashSlide = player.sliding ? 0.55 : 1;
+
+    // shadow stays pinned to the track regardless of jump height, so the
+    // player can always see exactly where they'll land relative to lanes
+    drawGroundShadow(x, groundY, s, false);
 
     ctx.save();
     ctx.translate(x, y - runBob * 0);
