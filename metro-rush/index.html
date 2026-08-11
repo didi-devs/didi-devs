@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0e1f" />
+    <meta name="description" content="Metro Rush -- a fast, original 3D endless runner. Dash through a stylized metro city, dodge trains, collect tokens, and chase your best run." />
+    <title>Metro Rush</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%232ad9ff%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%230a0e1f%22 font-family=%22Arial%22 font-weight=%22900%22>M</text></svg>" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas"></canvas>
+
+      <!-- LOADING SCREEN -->
+      <div id="screen-loading" class="screen active">
+        <div class="loading-logo">
+          <span class="logo-metro">METRO</span><span class="logo-rush">RUSH</span>
+        </div>
+        <div class="loading-bar-track">
+          <div class="loading-bar-fill" id="loading-bar-fill"></div>
+        </div>
+        <div class="loading-hint">Preparing the city&hellip;</div>
+      </div>
+
+      <!-- MAIN MENU -->
+      <div id="screen-menu" class="screen">
+        <div class="menu-panel">
+          <div class="game-logo">
+            <span class="logo-metro">METRO</span><span class="logo-rush">RUSH</span>
+          </div>
+          <div class="menu-best">
+            <span class="menu-best-label">BEST SCORE</span>
+            <span class="menu-best-value" id="menu-best-score">0</span>
+          </div>
+          <div class="menu-buttons">
+            <button class="btn btn-primary" id="btn-play">
+              <span class="btn-icon">&#9654;</span> PLAY
+            </button>
+            <button class="btn btn-secondary" id="btn-how-to-play">HOW TO PLAY</button>
+            <button class="btn btn-secondary" id="btn-settings">SETTINGS</button>
+          </div>
+          <div class="menu-footer">An original arcade runner &mdash; no relation to any existing franchise.</div>
+        </div>
+      </div>
+
+      <!-- HOW TO PLAY -->
+      <div id="screen-howto" class="screen">
+        <div class="panel">
+          <h2>HOW TO PLAY</h2>
+          <div class="howto-grid">
+            <div class="howto-item"><span class="howto-key">&larr; / A</span>Move left</div>
+            <div class="howto-item"><span class="howto-key">&rarr; / D</span>Move right</div>
+            <div class="howto-item"><span class="howto-key">&uarr; / W / Space</span>Jump</div>
+            <div class="howto-item"><span class="howto-key">&darr; / S</span>Slide</div>
+            <div class="howto-item"><span class="howto-key">Swipe</span>Same actions on mobile</div>
+            <div class="howto-item"><span class="howto-key">Esc</span>Pause</div>
+          </div>
+          <p class="howto-note">Collect tokens, grab power-ups, dodge trains and barriers, and chain multipliers to push your score as far as you can.</p>
+          <button class="btn btn-primary" id="btn-howto-back">BACK</button>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="screen-settings" class="screen">
+        <div class="panel">
+          <h2>SETTINGS</h2>
+          <div class="settings-row">
+            <label for="setting-music">Music Volume</label>
+            <input type="range" id="setting-music" min="0" max="100" value="60" />
+          </div>
+          <div class="settings-row">
+            <label for="setting-sfx">SFX Volume</label>
+            <input type="range" id="setting-sfx" min="0" max="100" value="80" />
+          </div>
+          <div class="settings-row">
+            <label for="setting-mute">Mute All</label>
+            <input type="checkbox" id="setting-mute" />
+          </div>
+          <div class="settings-row">
+            <label for="setting-quality">Quality</label>
+            <select id="setting-quality">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="HIGH">High</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="btn-settings-back">BACK</button>
+        </div>
+      </div>
+
+      <!-- START COUNTDOWN OVERLAY -->
+      <div id="screen-countdown" class="screen overlay-screen">
+        <div class="countdown-number" id="countdown-number">3</div>
+      </div>
+
+      <!-- HUD -->
+      <div id="hud" class="hud">
+        <div class="hud-top">
+          <div class="hud-score-block">
+            <div class="hud-score" id="hud-score">0</div>
+            <div class="hud-multiplier" id="hud-multiplier">x1</div>
+          </div>
+          <div class="hud-coins">
+            <span class="hud-coin-icon">&#9679;</span>
+            <span id="hud-coins">0</span>
+          </div>
+          <button class="hud-pause-btn" id="btn-pause" aria-label="Pause">&#10073;&#10073;</button>
+        </div>
+        <div class="hud-distance" id="hud-distance">0m</div>
+        <div class="hud-powerups" id="hud-powerups"></div>
+        <div class="hud-near-miss" id="hud-near-miss">CLOSE!</div>
+        <div class="hud-milestone" id="hud-milestone"></div>
+      </div>
+
+      <!-- MOBILE CONTROL HINTS (visual only, swipe anywhere) -->
+      <div id="mobile-hint" class="mobile-hint">Swipe to move, jump &amp; slide</div>
+
+      <!-- PAUSE MENU -->
+      <div id="screen-pause" class="screen overlay-screen">
+        <div class="panel">
+          <h2>PAUSED</h2>
+          <div class="menu-buttons">
+            <button class="btn btn-primary" id="btn-resume">RESUME</button>
+            <button class="btn btn-secondary" id="btn-pause-settings">SETTINGS</button>
+            <button class="btn btn-secondary" id="btn-pause-quit">QUIT TO MENU</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- GAME OVER -->
+      <div id="screen-gameover" class="screen overlay-screen">
+        <div class="panel gameover-panel">
+          <div class="gameover-title" id="gameover-title">RUN OVER</div>
+          <div class="newhigh-badge" id="newhigh-badge">NEW HIGH SCORE!</div>
+          <div class="gameover-stats">
+            <div class="gameover-stat">
+              <span class="gameover-stat-label">SCORE</span>
+              <span class="gameover-stat-value" id="stat-score">0</span>
+            </div>
+            <div class="gameover-stat">
+              <span class="gameover-stat-label">HIGH SCORE</span>
+              <span class="gameover-stat-value" id="stat-highscore">0</span>
+            </div>
+            <div class="gameover-stat">
+              <span class="gameover-stat-label">DISTANCE</span>
+              <span class="gameover-stat-value" id="stat-distance">0m</span>
+            </div>
+            <div class="gameover-stat">
+              <span class="gameover-stat-label">BEST DISTANCE</span>
+              <span class="gameover-stat-value" id="stat-bestdistance">0m</span>
+            </div>
+            <div class="gameover-stat">
+              <span class="gameover-stat-label">COINS</span>
+              <span class="gameover-stat-value" id="stat-coins">0</span>
+            </div>
+          </div>
+          <div class="menu-buttons">
+            <button class="btn btn-primary" id="btn-restart">RESTART</button>
+            <button class="btn btn-secondary" id="btn-home">HOME</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEBUG PANEL (dev only) -->
+      <div id="debug-panel" class="debug-panel"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
